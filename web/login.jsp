@@ -34,7 +34,6 @@
             </form>        
         </div>   
         <%
-            
             String usuario = request.getParameter("usuario");
             String senha = request.getParameter("senha");
 

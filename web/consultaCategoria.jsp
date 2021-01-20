@@ -5,7 +5,7 @@
 --%>
 
 <%@page import="java.util.List"%>
-<%@page import="Modelos.Usuario"%>
+/<%@page import="Modelos.Usuario"%>
 <%@page import="Modelos.Categoria"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -37,8 +37,6 @@
             if (usuario == null) {
                 response.sendRedirect("login.jsp");
             }
-            Usuario user = new Usuario();
-            user = user.consultar(usuario);
         %>
         <header>
             <!--<script src="scripts/cabecalho.js" ></script>-->
@@ -53,6 +51,8 @@
         <hr />
         <%
             Categoria categoria = new Categoria();
+            Usuario user = new Usuario();
+            user = user.consultar(usuario);
             List<Categoria> categorias = categoria.consultar(user.getIdUser());
            
         %>

@@ -14,10 +14,18 @@
         <title>Minha Agenda Financeira</title>
     </head>
     <body>
+        <%
+            //verifica sessão
+            String usuario = (String) session.getAttribute("usuario");
+            int idUser = (int) session.getAttribute("idUser");
+            if (usuario == null) {
+                response.sendRedirect("login.jsp");
+            }
+        %>
         <h1>Cadastro Receita</h1>
-         <%
+        <%
             Categoria categoria = new Categoria();
-            List<Categoria> categorias = categoria.consultar("R");
+            List<Categoria> categorias = categoria.consultar("R");  //consulta as categorias tipo=RECEITA
         %>
         <div>
             <form action="recebeDadosReceita.jsp" method="POST">

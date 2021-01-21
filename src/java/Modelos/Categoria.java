@@ -126,7 +126,7 @@ public class Categoria {
         return true;
     }
 
-    public List<Categoria> consultar(int pUser, String tipo) {
+    public List<Categoria> consultar(int pIdUser, String tipo) {
         List<Categoria> lista = new ArrayList<>();
         Connection con = Conexao.conectar();
         String sql = "SELECT ID, DESCRICAO, TIPO FROM CATEGORIA WHERE TIPO = ?"

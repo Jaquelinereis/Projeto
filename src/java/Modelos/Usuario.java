@@ -114,6 +114,7 @@ public class Usuario {
             stm.setString(10, this.email);
             stm.setString(11, this.senha);
             stm.setInt(12, pIdUser);
+            
             stm.execute();
         } catch (SQLException ex) {
             System.out.println("Erro: " + ex.getMessage());

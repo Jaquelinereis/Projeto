@@ -52,9 +52,6 @@
         <%
             Categoria categoria = new Categoria();
             List<Categoria> categorias = categoria.consultar(idUser);
-            /*Usuario user = new Usuario();
-            user = user.consultar(usuario);
-            List<Categoria> categorias = categoria.consultar(user.getIdUser());*/
            
         %>
         <table>

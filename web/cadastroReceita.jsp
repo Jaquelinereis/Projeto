@@ -25,7 +25,7 @@
         <h1>Cadastro Receita</h1>
         <%
             Categoria categoria = new Categoria();
-            List<Categoria> categorias = categoria.consultar("R");  //consulta as categorias tipo=RECEITA
+            List<Categoria> categorias = categoria.consultar(idUser,"R");  //consulta as categorias tipo=RECEITA
         %>
         <div>
             <form action="recebeDadosReceita.jsp" method="POST">

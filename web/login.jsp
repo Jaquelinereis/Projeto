@@ -36,13 +36,16 @@
         <%
             String usuario = request.getParameter("usuario");
             String senha = request.getParameter("senha");
-
+  
             if ((usuario != null) && (senha != null) && !(usuario.isEmpty())
                     && !(senha.isEmpty())) {
                 //crie a seção 
-                //Cliente cli = new Cliente();
+                //Usuario usuario = new Usuario();
                 if (Usuario.podeLogar(usuario, senha)) {
+                    Usuario user = new Usuario();
+                    user = user.consultar(usuario);
                     session.setAttribute("usuario", usuario);
+                    session.setAttribute("idUser", user.getIdUser());
                     response.sendRedirect("index.html");
                 }
             }

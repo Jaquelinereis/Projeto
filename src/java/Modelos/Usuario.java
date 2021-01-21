@@ -85,7 +85,7 @@ public class Usuario {
         return true;
     }
 
-    public boolean alterar() {
+    public boolean alterar(int pIdUser) {
         Connection con = Conexao.conectar();
         String sql = "update usuario set ";
         sql += "nome = ?,";
@@ -113,6 +113,7 @@ public class Usuario {
             stm.setString(9, this.uf);
             stm.setString(10, this.email);
             stm.setString(11, this.senha);
+            stm.setInt(12, pIdUser);
             stm.execute();
         } catch (SQLException ex) {
             System.out.println("Erro: " + ex.getMessage());

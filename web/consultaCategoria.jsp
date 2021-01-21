@@ -5,7 +5,6 @@
 --%>
 
 <%@page import="java.util.List"%>
-/<%@page import="Modelos.Usuario"%>
 <%@page import="Modelos.Categoria"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -34,6 +33,7 @@
         <%
             //verifica sessão
             String usuario = (String) session.getAttribute("usuario");
+            int idUser = (int) session.getAttribute("idUser");
             if (usuario == null) {
                 response.sendRedirect("login.jsp");
             }
@@ -51,9 +51,10 @@
         <hr />
         <%
             Categoria categoria = new Categoria();
-            Usuario user = new Usuario();
+            List<Categoria> categorias = categoria.consultar(idUser);
+            /*Usuario user = new Usuario();
             user = user.consultar(usuario);
-            List<Categoria> categorias = categoria.consultar(user.getIdUser());
+            List<Categoria> categorias = categoria.consultar(user.getIdUser());*/
            
         %>
         <table>

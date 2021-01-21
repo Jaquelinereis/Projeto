@@ -22,10 +22,12 @@
 <body>
     <%
         String usuario = (String) session.getAttribute("usuario");
+        int idUser = (int) session.getAttribute("idUser");
+    
         if (usuario == null) {
             response.sendRedirect("login.jsp");
         }
-        out.print("<p>" + usuario + "</p>");
+        out.print("<p>" + usuario +  + idUser + "</p>");
     %>
 
 </body>

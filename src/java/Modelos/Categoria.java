@@ -126,21 +126,24 @@ public class Categoria {
         return true;
     }
 
-    public List<Categoria> consultar(int pIdUser, String tipo) {
+    public List<Categoria> consultar(int pIdUser, String pTipo) {
         List<Categoria> lista = new ArrayList<>();
         Connection con = Conexao.conectar();
-        String sql = "SELECT ID, DESCRICAO, TIPO FROM CATEGORIA WHERE TIPO = ?"
-                + " ORDER BY DESCRICAO";
+        String sql = "SELECT ID, IDUSUARIO, DESCRICAO, TIPO "
+                + "FROM CATEGORIA "
+                + "WHERE IDUSUARIO = ? AND TIPO = ? "
+                + "ORDER BY DESCRICAO";
         try {
             PreparedStatement stm = con.prepareStatement(sql);
-            stm.setString(1, tipo);
+            stm.setInt(1, pIdUser);
+            stm.setString(2, pTipo);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Categoria categoria = new Categoria();
-                categoria.setId(id);
+                categoria.setId(rs.getInt("id"));
+                categoria.setIdUsuario(rs.getInt("idusuario"));
                 categoria.setDescricao(rs.getString("descricao"));
                 categoria.setTipo(rs.getString("tipo"));
-
                 lista.add(categoria);
             }
 

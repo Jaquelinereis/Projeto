@@ -19,109 +19,114 @@ import utils.Conexao;
  * @author User
  */
 public class Receita {
+
     private int id;
+    private int idUsuario;
+    private int idCategoria;
     private String descricao;
     private float valor;
     private Date data;
-    
-    public boolean salvar(){
-    String sql = "insert into receita(descricao, valor, data)";
-                  sql += "values(?,?,?)";
+
+    public boolean salvar() {
+        String sql = "insert into receita(idusuario, idcategoria, descricao, valor, data)";
+        sql += "values(?,?,?,?,?)";
         Connection con = Conexao.conectar();
-       
+
         try {
-           PreparedStatement stm = con.prepareStatement(sql);
-           stm.setString(1, this.descricao);
-           stm.setFloat(2, this.valor);
-           stm.setDate(3, this.data);
-           
-           stm.execute();           
+            PreparedStatement stm = con.prepareStatement(sql);
+            stm.setInt(1,this.idUsuario);
+            stm.setInt(2, this.idCategoria);
+            stm.setString(3, this.descricao);
+            stm.setFloat(4, this.valor);
+            stm.setDate(5, this.data);
+            stm.execute();
         } catch (SQLException ex) {
-           System.out.println("Erro: " + ex.getMessage());
-           return false;
-        }        
+            System.out.println("Erro: " + ex.getMessage());
+            return false;
+        }
         return true;
     }
-    public boolean alterar(){
+
+    public boolean alterar() {
         Connection con = Conexao.conectar();
         String sql = "update receita set ";
-              sql +="descricao = ?,";
-              sql +="valor = ?,";
-              sql +="data = ?,";
-              sql +=" where id = ?";
+        sql += "descricao = ?,";
+        sql += "valor = ?,";
+        sql += "data = ?";
+        sql += " where id = ?";
         try {
-           PreparedStatement stm = con.prepareStatement(sql);
-           stm.setString(1, this.descricao);
-           stm.setFloat(2, this.valor);
-           stm.setDate(3, this.data);
-           stm.setInt(4, this.id);
-           
-           stm.execute();           
+            PreparedStatement stm = con.prepareStatement(sql);
+            stm.setString(1, this.descricao);
+            stm.setFloat(2, this.valor);
+            stm.setDate(3, this.data);
+            stm.setInt(4, this.id);
+
+            stm.execute();
         } catch (SQLException ex) {
-           System.out.println("Erro: " + ex.getMessage());
-           return false;
-        }        
+            System.out.println("Erro: " + ex.getMessage());
+            return false;
+        }
         return true;
-    } 
-    public Receita consultar(int id){
+    }
+
+    public Receita consultar(int id) {
         Connection con = Conexao.conectar();
         String sql = "select id, descricao, valor, data"
-                 + " from receita where id = ?";
+                + " from receita where id = ?";
         Receita receita = null;
         try {
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
-            if(rs.next()){
-            receita = new Receita();
-            receita.setId(id);
-            receita.setDescricao(rs.getString("descricao"));
-            receita.setValor(rs.getFloat("valor"));
-            receita.setData(rs.getDate("data"));           
+            if (rs.next()) {
+                receita = new Receita();
+                receita.setId(id);
+                receita.setDescricao(rs.getString("descricao"));
+                receita.setValor(rs.getFloat("valor"));
+                receita.setData(rs.getDate("data"));
             }
-           
-        } catch (SQLException ex) {
-           System.out.println("Erro: " + ex.getMessage());
-        }      
-    return receita;  
-    }  
 
-    public List<Receita> consultar(){
+        } catch (SQLException ex) {
+            System.out.println("Erro: " + ex.getMessage());
+        }
+        return receita;
+    }
+
+    public List<Receita> consultar() {
         List<Receita> lista = new ArrayList<>();
         Connection con = Conexao.conectar();
         String sql = "select id, descricao, valor, data from receita";
         try {
-           PreparedStatement stm = con.prepareStatement(sql);
-           ResultSet rs = stm.executeQuery();
-           while(rs.next()){
-            Receita receita = new Receita();
-            receita.setId(rs.getInt("id"));
-            receita.setDescricao(rs.getString("descricao"));
-            receita.setValor(rs.getFloat("valor"));
-            receita.setData(rs.getDate("data"));           
-            
-             
-             lista.add(receita);
-           }
-           
-        } catch (SQLException ex) {
-           System.out.println("Erro: " + ex.getMessage());
-        }      
-        return lista; 
-}
+            PreparedStatement stm = con.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Receita receita = new Receita();
+                receita.setId(rs.getInt("id"));
+                receita.setDescricao(rs.getString("descricao"));
+                receita.setValor(rs.getFloat("valor"));
+                receita.setData(rs.getDate("data"));
 
-public boolean excluir(){
+                lista.add(receita);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro: " + ex.getMessage());
+        }
+        return lista;
+    }
+
+    public boolean excluir() {
         Connection con = Conexao.conectar();
         String sql = "delete from receita ";
-              sql +=" where id = ?";
+        sql += " where id = ?";
         try {
-           PreparedStatement stm = con.prepareStatement(sql);
-           stm.setInt(1, this.id);
-           stm.execute();           
+            PreparedStatement stm = con.prepareStatement(sql);
+            stm.setInt(1, this.id);
+            stm.execute();
         } catch (SQLException ex) {
-           System.out.println("Erro: " + ex.getMessage());
-           return false;
-        }        
+            System.out.println("Erro: " + ex.getMessage());
+            return false;
+        }
         return true;
     }
 
@@ -156,5 +161,20 @@ public boolean excluir(){
     public void setData(Date data) {
         this.data = data;
     }
-} 
 
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public int getIdCategoria() {
+        return idCategoria;
+    }
+
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+}

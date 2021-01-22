@@ -50,16 +50,18 @@ public class Receita {
     public boolean alterar() {
         Connection con = Conexao.conectar();
         String sql = "update receita set ";
+        sql += "idcategoria = ?,";
         sql += "descricao = ?,";
         sql += "valor = ?,";
         sql += "data = ?";
         sql += " where id = ?";
         try {
             PreparedStatement stm = con.prepareStatement(sql);
-            stm.setString(1, this.descricao);
-            stm.setFloat(2, this.valor);
-            stm.setDate(3, this.data);
-            stm.setInt(4, this.id);
+            stm.setInt(1, this.idCategoria);
+            stm.setString(2, this.descricao);
+            stm.setFloat(3, this.valor);
+            stm.setDate(4, this.data);
+            stm.setInt(5, this.id);
 
             stm.execute();
         } catch (SQLException ex) {

@@ -6,7 +6,7 @@
 
 <%@page import="java.util.List"%>
 <%@page import="Modelos.Categoria"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -42,51 +42,52 @@
             <!--<script src="scripts/cabecalho.js" ></script>-->
         </header>
         <section>
-        <nav>
-            <!--<script src="scripts/menu.js" > </script>-->
-        </nav>
-        <article>
-        
-        <h1>Consulta Categorias</h1>
-        <hr />
-        <%
-            Categoria categoria = new Categoria();
-            List<Categoria> categorias = categoria.consultar(idUser);
-           
-        %>
-        <table>
-        <thead>
-            <th>Id</th>
-            <th>IdUsuario</th>
-            <th>Descricao</th>
-            <th>Tipo</th>
-            <th>Editar</th>
-            <th>Excluir</th>
-        </thead> 
-             
-        <tbody>
-            <% for(Categoria c: categorias) {%>
-            <tr>
-                <td><% out.write(""+c.getId());%></td>
-                <td><% out.write(""+c.getIdUsuario());%></td>
-                <td><% out.write(c.getDescricao());%></td>
-                <%if (c.getTipo().equals("R")) {%>
-                    <td><%out.write(c.getTipo() + "ECEITA");%></td>
-                <%}%>
-                <%if (c.getTipo().equals("D")) {%>
-                    <td><%out.write(c.getTipo() + "ESPESA");%></td>
-                <%}%>
-                <td><%out.write("<a href=editarCategoria.jsp?id="+c.getId()+"&idUser="
-                        +c.getIdUsuario()+">Editar</a>");%></td>   
-                <td><%out.write("<a href=excluirCategoria.jsp?id="+c.getId()+"&idUser="
-                        +c.getIdUsuario()+">Excluir</a>");%></td>   
-            </tr>
-            <%}%>
-             
-        </tbody>
-        </table>
-        <p><a href="cadastroCategoria.jsp">Clique <strong>aqui</strong> para Incluir uma nova Categoria</a></p>
-        </article>
+            <nav>
+                <!--<script src="scripts/menu.js" > </script>-->
+            </nav>
+            <article>
+
+                <h1>Consulta Categorias</h1>
+                <hr />
+                <%
+                    Categoria categoria = new Categoria();
+                    List<Categoria> categorias = categoria.consultar(idUser);
+
+                %>
+                <table>
+                    <thead>
+                    <th>Id</th>
+                    <th>IdUsuario</th>
+                    <th>Descricao</th>
+                    <th>Tipo</th>
+                    <th>Editar</th>
+                    <th>Excluir</th>
+                    </thead> 
+
+                    <tbody>
+                        <% for (Categoria c : categorias) {%>
+                        <tr>
+                            <td><% out.write("" + c.getId());%></td>
+                            <td><% out.write("" + c.getIdUsuario());%></td>
+                            <td><% out.write(c.getDescricao());%></td>
+                            <%if (c.getTipo().equals("R")) {%>
+                            <td><%out.write(c.getTipo() + "ECEITA");%></td>
+                            <%}%>
+                            <%if (c.getTipo().equals("D")) {%>
+                            <td><%out.write(c.getTipo() + "ESPESA");%></td>
+                            <%}%>
+                                <td><%out.write("<a href=editarCategoria.jsp?id=" + c.getId() + "&idUser="
+                            + c.getIdUsuario() + ">Editar</a>");%></td>   
+                                <td><%out.write("<a href=excluirCategoria.jsp?id=" + c.getId() + "&idUser="
+                            + c.getIdUsuario() + ">Excluir</a>");%></td>   
+                        </tr>
+                        <%}%>
+
+
+                    </tbody>
+                </table>
+                <p><a href="cadastroCategoria.jsp">Clique <strong>aqui</strong> para Incluir uma nova Categoria</a></p>
+            </article>
         </section>
         <footer>
             <script src="scripts/rodape.js"></script>

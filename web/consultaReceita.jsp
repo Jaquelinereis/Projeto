@@ -8,7 +8,7 @@
 <%@page import="Modelos.Receita"%>
 <%@page import="Modelos.Despesa"%>
 <%@page import="java.util.List"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -57,6 +57,7 @@
                 %>
                 <table>
                     <thead>
+                    <th>Id</th>
                     <th>Data</th>
                     <th>Categoria</th>
                     <th>Valor</th>
@@ -67,17 +68,20 @@
                     <tbody>
                         <%while(rs.next()){%>
                         <tr>
+                            <td><%out.write(""+rs.getString("id"));%></td>
                             <td><%out.write(rs.getString("data"));%></td>
                             <td><%out.write(rs.getString("categoria"));%></td>
                             <td><%out.write(rs.getString("valor"));%></td>
                             <td><%out.write(rs.getString("descricao"));%></td>
-                            <%int idReceita = Integer.parseInt(rs.getString("id"));%>
-                            <td><%out.write("<a href=editarReceita.jsp?id=" + idReceita + ">Editar</a>");%></td>
-                            <td><%out.write("<a href=excluirReceita.jsp?id=" + idReceita + ">Excluir</a>");%></td>   
+                            <td><%out.write("<a href=editarReceita.jsp?id="+rs.getString("id")
+                                +"&idUser="+rs.getString("idusuario")+">Editar</a>");%></td>   
+                            <td><%out.write("<a href=excluirReceita.jsp?id="+rs.getString("id")
+                                +"&idUser="+rs.getString("idusuario")+">Excluir</a>");%></td>   
                         </tr>
                         <%}%>
                     </tbody>
                 </table>
+                <p><a href="cadastroReceita.jsp">Clique <strong>aqui</strong> para Incluir novo registro!</a></p>
             </article>
         </section>
         <footer>

@@ -69,43 +69,71 @@ public class Receita {
         return true;
     }
 
-    public Receita consultar(int id) {
+    public Receita consultar(int pId, int pIdUser) {
         Connection con = Conexao.conectar();
-        String sql = "select id, descricao, valor, data"
-                + " from receita where id = ?";
+        String sql = "select id, idusuario, idcategoria, descricao, valor, data "
+                + "from receita where id = ? and idusuario = ?;";
         Receita receita = null;
         try {
             PreparedStatement stm = con.prepareStatement(sql);
-            stm.setInt(1, id);
+            stm.setInt(1, pId);
+            stm.setInt(2, pIdUser);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 receita = new Receita();
-                receita.setId(id);
+                receita.setId(pId);
+                receita.setIdUsuario(pIdUser);
+                receita.setIdCategoria(rs.getInt("idcategoria"));
                 receita.setDescricao(rs.getString("descricao"));
                 receita.setValor(rs.getFloat("valor"));
                 receita.setData(rs.getDate("data"));
             }
-
         } catch (SQLException ex) {
             System.out.println("Erro: " + ex.getMessage());
         }
         return receita;
     }
 
-    public List<Receita> consultar() {
-        List<Receita> lista = new ArrayList<>();
+     public ResultSet consultarInner(int pIdUser) {
         Connection con = Conexao.conectar();
-        String sql = "select id, descricao, valor, data from receita";
+        String sql = "select r.id, r.idusuario, r.idcategoria, c.descricao categoria, "
+                + "r.descricao, r.valor, r.data "
+                + "from receita r, categoria c "
+                + "where r.idcategoria = c.id "
+                + "and r.idusuario = ? "
+                + "order by data;";
+        ResultSet rs = null;
         try {
             PreparedStatement stm = con.prepareStatement(sql);
+            stm.setInt(1, pIdUser);
+            rs = stm.executeQuery();
+        } catch (SQLException ex) {
+            System.out.println("Erro: " + ex.getMessage());
+        }
+        return rs;
+    }
+     
+    public List<Receita> consultar(int pIdUser) { // Método tem que ser modificado para usar (não está pronto)
+        List<Receita> lista = new ArrayList<>();
+        Connection con = Conexao.conectar();
+        String sql = "select r.id, r.idusuario, r.idcategoria, c.descricao categoria, "
+                + "r.descricao, r.valor, r.data "
+                + "from receita r, categoria c "
+                + "where r.idcategoria = c.id "
+                + "and r.idusuario = ? "
+                + "order by data;";
+        try {
+            PreparedStatement stm = con.prepareStatement(sql);
+            stm.setInt(1, pIdUser);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Receita receita = new Receita();
                 receita.setId(rs.getInt("id"));
+                receita.setIdUsuario(rs.getInt("idusuario"));
+                receita.setIdCategoria(rs.getInt("idcategoria"));
                 receita.setDescricao(rs.getString("descricao"));
                 receita.setValor(rs.getFloat("valor"));
                 receita.setData(rs.getDate("data"));
-
                 lista.add(receita);
             }
 

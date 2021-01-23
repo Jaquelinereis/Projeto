@@ -6,7 +6,7 @@
 
 <%@page import="Modelos.Usuario"%>
 <%@page import="Modelos.Categoria"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html charset=UTF-8" pageEncoding="UTF-8"%>
 <%
     //verifica sessão
     String usuario = (String) session.getAttribute("usuario");

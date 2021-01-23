@@ -6,8 +6,9 @@
 
 <%@page import="Modelos.Usuario"%>
 <%@page import="java.sql.Date"%>
+<%@page contentType="text/html charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-        //verifica sessão
+        //verifica sessÃ£o
         String usuario = (String) session.getAttribute("usuario");
         int idUser = (int) session.getAttribute("idUser");
         if (usuario == null) {
@@ -33,7 +34,7 @@
                 response.sendRedirect("informacao.jsp?msg=" + msg);
             }
         } else {
-            String msg = "Usuario não encontrato para alterar!";
+            String msg = "Usuario nÃ£o encontrato para alterar!";
             response.sendRedirect("informacao.jsp?msg=" + msg);
         }
 %>

@@ -11,11 +11,12 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Date"%>
+<%@page contentType="text/html charset=UTF-8" pageEncoding="UTF-8"%>
 <%
     Usuario usuario = new Usuario();
     if (usuario.userExiste(request.getParameter("usuario"))) {
         //voltar para cadastro
-        String msg = "Usuario já existe";
+        String msg = "Usuario jÃ¡ existe";
         response.sendRedirect("informacao.jsp?msg="+msg);
     } else {
         usuario.setNome(request.getParameter("nome"));
@@ -31,7 +32,7 @@
         usuario.setSenha(request.getParameter("senha"));
         String email = request.getParameter("usuario");
         if (usuario.salvar()) {
-            //cadastrar as Categorias Padrões para este usuario
+            //cadastrar as Categorias PadrÃµes para este usuario
             usuario = usuario.consultar(email);
             //int idUser = usuario.getIdUser();
             CategoriaDefault categoriaDefault = new CategoriaDefault();
@@ -46,7 +47,7 @@
                 categoria.setTipo(x.getTipo());
                 categoria.salvar();
             }
-            //direciona para a página de informações
+            //direciona para a pÃ¡gina de informaÃ§Ãµes
             String msg = "Usuario salvo com Sucesso!";
             response.sendRedirect("informacao.jsp?msg="+msg);
         }

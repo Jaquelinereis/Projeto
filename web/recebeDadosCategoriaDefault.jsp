@@ -6,17 +6,18 @@
 
 <%@page import="Modelos.Usuario"%>
 <%@page import="Modelos.CategoriaDefault"%>
+<%@page contentType="text/html charset=UTF-8" pageEncoding="UTF-8"%>
 <%
     CategoriaDefault categoriaDefault = new CategoriaDefault();
     /*if (categoria.userExiste(request.getParameter("email"))) {
         //voltar para cadastro
-        String msg = "Usuario já existe";
+        String msg = "Usuario jÃ¡ existe";
         response.sendRedirect("informacao.jsp?msg="+msg);
     } else {*/
     categoriaDefault.setDescricao(request.getParameter("descricao"));
     categoriaDefault.setTipo(request.getParameter("tipo"));
     if (categoriaDefault.salvar()) {
-        //direciona para a página de informações
+        //direciona para a pÃ¡gina de informaÃ§Ãµes
         String msg = "Categoria Default salva com Sucesso!";
         response.sendRedirect("informacao.jsp?msg=" + msg);
     }

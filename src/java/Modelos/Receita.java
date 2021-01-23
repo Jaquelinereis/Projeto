@@ -148,10 +148,11 @@ public class Receita {
     public boolean excluir() {
         Connection con = Conexao.conectar();
         String sql = "delete from receita ";
-        sql += " where id = ?";
+        sql += " where id = ? and idusuario = ?;";
         try {
             PreparedStatement stm = con.prepareStatement(sql);
             stm.setInt(1, this.id);
+            stm.setInt(2, this.idUsuario);
             stm.execute();
         } catch (SQLException ex) {
             System.out.println("Erro: " + ex.getMessage());

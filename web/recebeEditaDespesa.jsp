@@ -1,5 +1,5 @@
 <%-- 
-    Document   : recebeDadosDespesa
+    Document   : recebeEditaDespesa
     Created on : 16/12/2020, 08:05:39
     Author     : entra21
 --%>
@@ -17,6 +17,7 @@
 
     //instancia e recebe os valores da tela HTML
     Despesa despesa = new Despesa();
+    despesa.setId(Integer.parseInt(request.getParameter("id")));
     despesa.setIdUsuario(idUser);
     despesa.setIdCategoria(Integer.parseInt(request.getParameter("idCategoria")));
     despesa.setDescricao(request.getParameter("descricao"));
@@ -24,10 +25,10 @@
     despesa.setData(Date.valueOf(request.getParameter("data")));
 
     String msg = "";
-    if (despesa.salvar()) {
-        msg = "Despesa salva com sucesso!";
+    if (despesa.alterar()) {
+        msg = "Despesa alterada com sucesso!";
     } else {
-        msg = "Problemas ao salvar Despesa!";
+        msg = "Problemas ao alterar Despesa!";
     }
     response.sendRedirect("informacao.jsp?msg=" + msg);
 %>

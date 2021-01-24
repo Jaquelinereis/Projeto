@@ -23,30 +23,30 @@
     </head>
     <body>
         <div>
-            <h1>Tela de Login</h1>
-            <form action="login.jsp" method="POST">
+            <h1>Tela de Login Default</h1>
+            <form action="loginDefault.jsp" method="POST">
                 <label>Usuario</label><br/>
-                <input type="email" name="usuario" /> <br/>
+                <input type="text" name="usuario" /> <br/>
                 <label>Senha</label><br/>
                 <input type="password" name="senha" /> <hr/>
                 <input type="submit" value="Logar" />  
-                <a href="cadastroUsuario.jsp"><input type="button" value="Cadastrar" /><a/>
+                <a href="index.html"><input type="button" value="Cancelar" /><a/>
             </form>        
         </div>   
         <%
+            String usuarioEsperado = "entra21";     // usuario autorizado para manutenção
             String usuario = request.getParameter("usuario");
             String senha = request.getParameter("senha");
   
             if ((usuario != null) && (senha != null) && !(usuario.isEmpty())
                     && !(senha.isEmpty())) {
-                //crie a seção 
-                //Usuario usuario = new Usuario();
                 if (Usuario.podeLogar(usuario, senha)) {
-                    Usuario user = new Usuario();
-                    user = user.consultar(usuario);
-                    session.setAttribute("usuario", usuario);
-                    session.setAttribute("idUser", user.getIdUser());
-                    response.sendRedirect("index.html");
+                    if (usuario == usuarioEsperado) {
+                        response.sendRedirect("consultaCategoriaDefault.jsp");
+                    } else {
+                        String msg = "Usuario não Autorizado na Manutenção!";
+                        response.sendRedirect("informacao.jsp?msg=" + msg);
+                    }
                 }
             }
         %>

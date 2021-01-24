@@ -62,6 +62,15 @@
         </style>
     </head>
     <body>
+        <%
+            //verifica sessão
+            String usuario = (String) session.getAttribute("usuario");
+            if (usuario == null) {
+                response.sendRedirect("loginDefault.jsp");
+            } else if (usuario == "entra21") {
+                response.sendRedirect("consultaCategoriaDefault.jsp");
+            }
+        %>
         <header>
             <!--<script src="scripts/cabecalho.js"></script>-->
         </header>
@@ -82,7 +91,7 @@
                         <option value="R">Receita</option>
                     </select>
                         
-                    <input type="button" value="Enviar" onclick="enviaForm()" />
+                    <input type="button" value="Salvar" onclick="enviaForm()" />
                     <input type="reset" value="Limpar" />
                 </form>
                 </div>

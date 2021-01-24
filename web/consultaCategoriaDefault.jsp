@@ -1,5 +1,5 @@
 <%-- 
-    Document   : consultaCategoriasDefault
+    Document   : consultaCategoriaDefault
     Created on : 16 de nov de 2020, 10:13:42
     Author     : entra21
 --%>
@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link rel="stylesheet" href="style/estilos2.css"/>
-        <title>consultaCategoriasDefault</title>
+        <title>consultaCategoriaDefault</title>
     </head>
     <body>
         <header>

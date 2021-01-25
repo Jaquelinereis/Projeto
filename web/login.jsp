@@ -26,7 +26,7 @@
             <h1>Tela de Login</h1>
             <form action="login.jsp" method="POST">
                 <label>Usuario</label><br/>
-                <input type="email" name="usuario" /> <br/>
+                <input type="text" name="usuario" /> <br/>
                 <label>Senha</label><br/>
                 <input type="password" name="senha" /> <hr/>
                 <input type="submit" value="Logar" />  

@@ -41,7 +41,7 @@
             if ((usuario != null) && (senha != null) && !(usuario.isEmpty())
                     && !(senha.isEmpty())) {
                 if (Usuario.podeLogar(usuario, senha)) {
-                    if (usuario == usuarioEsperado) {
+                    if (usuario.contains(usuarioEsperado)) {
                         response.sendRedirect("consultaCategoriaDefault.jsp");
                     } else {
                         String msg = "Usuario não Autorizado na Manutenção!";

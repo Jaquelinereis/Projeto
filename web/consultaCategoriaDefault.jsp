@@ -15,6 +15,17 @@
         <title>consultaCategoriaDefault</title>
     </head>
     <body>
+        <%
+            String usuarioEsperado = "entra21";     // usuario autorizado para manutenção
+            //verifica sessão
+            String usuario = (String) session.getAttribute("usuario");
+            if (usuario == null) {
+                response.sendRedirect("login.jsp");
+            }
+            else if (!usuario.contains(usuarioEsperado)) {
+                response.sendRedirect("index.html");
+            }
+        %>
         <header>
             <!--<script src="scripts/cabecalho.js"></script>-->
         </header>

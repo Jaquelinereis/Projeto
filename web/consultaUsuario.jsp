@@ -32,10 +32,12 @@
     <body>
         <%
             //verifica sessão
+            int idUser = 0;
             String usuario = (String) session.getAttribute("usuario");
-            int idUser = (int) session.getAttribute("idUser");
             if (usuario == null) {
                 response.sendRedirect("login.jsp");
+            } else {
+                idUser = (int) session.getAttribute("idUser");
             }
         %>
         <header>
@@ -69,20 +71,22 @@
                 <th>Senha</th>
             </thead> 
             <tbody>
-                <tr>
-                <td><% out.write(""+u.getIdUser());%></td>      
-                <td><% out.write(u.getNome());%></td>
-                <td><% out.write(u.getCpf());%></td>
-                <td><% out.write(String.valueOf(u.getDataNasc()));%></td>
-                <td><% out.write(u.getFone());%></td>
-                <td><% out.write(u.getCep());%></td>
-                <td><% out.write(u.getEndereco());%></td>
-                <td><% out.write(u.getBairro());%></td>
-                <td><% out.write(u.getCidade());%></td>
-                <td><% out.write(u.getUf());%></td>
-                <td><% out.write(u.getEmail());%></td>
-                <td><% out.write(u.getSenha());%></td> 
-                </tr>
+                <%if (u != null) {%>
+                    <tr>
+                    <td><% out.write(""+u.getIdUser());%></td>      
+                    <td><% out.write(u.getNome());%></td>
+                    <td><% out.write(u.getCpf());%></td>
+                    <td><% out.write(String.valueOf(u.getDataNasc()));%></td>
+                    <td><% out.write(u.getFone());%></td>
+                    <td><% out.write(u.getCep());%></td>
+                    <td><% out.write(u.getEndereco());%></td>
+                    <td><% out.write(u.getBairro());%></td>
+                    <td><% out.write(u.getCidade());%></td>
+                    <td><% out.write(u.getUf());%></td>
+                    <td><% out.write(u.getEmail());%></td>
+                    <td><% out.write(u.getSenha());%></td> 
+                    </tr>
+                <%}%>
             </tbody>             
         </table>
         <p><a href="editarUsuario.jsp">Clique <strong>aqui</strong> para Alterar alguma informação!</a></p>

@@ -16,8 +16,8 @@
     </head>
     <body>
         <%
-            String usuarioEsperado = "entra21";     // usuario autorizado para manutenção
             //verifica sessão
+            String usuarioEsperado = "entra21";     // usuario autorizado para manutenção
             String usuario = (String) session.getAttribute("usuario");
             if (usuario == null) {
                 response.sendRedirect("login.jsp");

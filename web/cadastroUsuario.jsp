@@ -54,6 +54,58 @@
                 padding: 20px;
             }
         </style>
+        <script type="text/javascript">
+            function fMasc(objeto, mascara) {
+                obj = objeto
+                masc = mascara
+                setTimeout("fMascEx()", 1)
+            }
+            function fMascEx() {
+                obj.value = masc(obj.value)
+            }
+            function mTel(fone) {
+                fone = fone.replace(/\D/g, "")
+                fone = fone.replace(/^(\d)/, "($1")
+                fone = fone.replace(/(.{3})(\d)/, "$1)$2")
+                if (fone.length == 9) {
+                    fone = fone.replace(/(.{1})$/, "-$1")
+                } else if (fone.length == 10) {
+                    fone = fone.replace(/(.{2})$/, "-$1")
+                } else if (fone.length == 11) {
+                    fone = fone.replace(/(.{3})$/, "-$1")
+                } else if (fone.length == 12) {
+                    fone = fone.replace(/(.{4})$/, "-$1")
+                } else if (fone.length > 12) {
+                    fone = fone.replace(/(.{4})$/, "-$1")
+                }
+                return fone;
+            }
+            function mCNPJ(cnpj) {
+                cnpj = cnpj.replace(/\D/g, "")
+                cnpj = cnpj.replace(/^(\d{2})(\d)/, "$1.$2")
+                cnpj = cnpj.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+                cnpj = cnpj.replace(/\.(\d{3})(\d)/, ".$1/$2")
+                cnpj = cnpj.replace(/(\d{4})(\d)/, "$1-$2")
+                return cnpj
+            }
+            function mCPF(cpf) {
+                cpf = cpf.replace(/\D/g, "")
+                cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
+                cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
+                cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
+                return cpf
+            }
+            function mCEP(cep) {
+                cep = cep.replace(/\D/g, "")
+                cep = cep.replace(/^(\d{2})(\d)/, "$1.$2")
+                cep = cep.replace(/\.(\d{3})(\d)/, ".$1-$2")
+                return cep
+            }
+            function mNum(num) {
+                num = num.replace(/\D/g, "")
+                return num
+            }
+        </script>
     </head>
     <body>
         <!--<header>
@@ -70,51 +122,52 @@
 
                 <form action="recebeDadosUsuario.jsp" method="POST">
                     <div>
-                    <label>Nome</label>
-                    <label id="erroNome" class="error"></label> 
-                    <input type="text" name="nome" /> <br /> <br />
-                    
-                    <label>Cpf</label>
-                    <label id="erroCpf" class="error"></label> 
-                    <input type="text" name="cpf" /> <br /> <br />
+                        <label>Nome</label>
+                        <label id="erroNome" class="error"></label> 
+                        <input type="text" name="nome" /> <br /> <br />
 
-                    <label>Data Nascimento</label>
-                    <input type="date" name="dataNascimento" /> <br /> <br />
+                        <label>Cpf</label>
+                        <label id="erroCpf" class="error"></label> 
+                        <input type="text" name="cpf" onkeydown="javascript: fMasc(this, mCPF);"><br /> <br />
 
-                    <label>Fone</label>
-                    <label id="erroFone" class="error"></label>
-                    <input type="text" name="fone" /> <br /> <br />
-                    
-                    <label>Cep</label>
-                    <input type="text" name="cep" /> <br /> <br />
+                        <label>Data Nascimento</label>
+                        <input type="date" name="dataNascimento" /> <br /> <br />
 
-                    <label>Endereço</label>
-                    <input type="text" name="endereco" /> <br /> <br />
+                        <label>Fone</label>
+                        <label id="erroFone" class="error"></label>
+                        <input type="text" name="fone" onkeydown="javascript: fMasc(this, mTel);"><br /> <br />
 
-                    <label>Bairro</label>
-                    <input type="text" name="bairro" /> <br /> <br />
+                        <label>Cep</label>
+                        <label id="erroCep" class="error"></label>
+                        <input type="text" name="cep" onkeydown="javascript: fMasc(this, mCEP);"><br /> <br />
 
-                    <label>Cidade</label>
-                    <input type="text" name="cidade" /> <br /> <br />
+                        <label>Endereço</label>
+                        <input type="text" name="endereco" /> <br /> <br />
 
-                    <label>Estado</label>
-                    <input type="text" name="uf" /> <br /> <br />
+                        <label>Bairro</label>
+                        <input type="text" name="bairro" /> <br /> <br />
 
-                    <label>e-Mail/Usuario</label>
-                    <input type="text" name="usuario" /> <br /> <br />
-                
-                    <label>Senha</label>
-                    <input type="password" name="senha" /> <br /> <br />
+                        <label>Cidade</label>
+                        <input type="text" name="cidade" /> <br /> <br />
 
-                    <input type="button" value="Enviar" onclick="enviarDados()" />
+                        <label>Estado</label>
+                        <input type="text" name="uf" /> <br /> <br />
+
+                        <label>e-Mail/Usuario</label>
+                        <input type="text" name="usuario" /> <br /> <br />
+
+                        <label>Senha</label>
+                        <input type="password" name="senha" /> <br /> <br />
+
+                        <input type="button" value="Enviar" onclick="enviarDados()" />
                     </div>
                 </form>
 
                 <script>
-                    function enviarDados(){
+                    function enviarDados() {
                         var semErros = true;
                         var nome = document.getElementsByName("nome");
-                        if (nome[0].value === ""){
+                        if (nome[0].value === "") {
                             //erros.innerHTML += "<br>Informe nome";
                             //nome[0].style="border: red solid 3px";
                             //nome[0].focus();
@@ -122,22 +175,59 @@
                             semErros = false;
                         }
                         var cpf = document.getElementsByName("cpf");
-                        if (cpf[0].value === ""){
+                        if (testaCpf(cpf)) {
                             //erros.innerHTML += "<br>Informe cpf";
-                            document.getElementById("erroCpf").innerHTML = " <<< Informe Cpf >>>";
+                            document.getElementById("erroCpf").innerHTML = " <<< Cpf invalido >>>";
                             //cpf[0].focus();
                             semErros = false;
                         }
                         var fone = document.getElementsByName("fone");
-                        if (fone[0].value === ""){
+                        if (fone[0].value === "") {
                             document.getElementById("erroFone").innerHTML = " <<< Informe Telefone/Celular >>>";
                             semErros = false;
                         }
+                        var cep = document.getElementsByName("cep");
+                        if (cep[0].value === "") {
+                            document.getElementById("erroCep").innerHTML = " <<< Informe Cep >>>";
+                            semErros = false;
+                        }
 
-                        if(semErros){
+                        if (semErros) {
                             document.forms[0].submit();
                         }
                     }
+
+
+                    function testaCPF(strCPF) {
+                        var Soma;
+                        var Resto;
+                        Soma = 0;
+                        if (strCPF == "000.000.000-00")
+                            return false;
+
+                        for (i = 1; i <= 11; i++)
+                            Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+                        Resto = (Soma * 10) % 11;
+
+                        if ((Resto == 10) || (Resto == 11))
+                            Resto = 0;
+                        if (Resto != parseInt(strCPF.substring(11, 12)))
+                            return false;
+
+                        Soma = 0;
+                        for (i = 1; i <= 12; i++)
+                            Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+                        Resto = (Soma * 10) % 11;
+
+                        if ((Resto == 10) || (Resto == 11))
+                            Resto = 0;
+                        if (Resto != parseInt(strCPF.substring(13, 14)))
+                            return false;
+                        return true;
+                    }
+                    //var strCPF = "12345678909";
+                    //alert(TestaCPF(strCPF));
+
                 </script>
             </article>
         </section>

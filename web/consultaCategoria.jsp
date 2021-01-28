@@ -32,10 +32,12 @@
     <body>
         <%
             //verifica sessão
+            int idUser = 0;
             String usuario = (String) session.getAttribute("usuario");
-            int idUser = (int) session.getAttribute("idUser");
             if (usuario == null) {
                 response.sendRedirect("login.jsp");
+            } else {
+                idUser = (int) session.getAttribute("idUser");
             }
         %>
         <header>
@@ -52,7 +54,6 @@
                 <%
                     Categoria categoria = new Categoria();
                     List<Categoria> categorias = categoria.consultar(idUser);
-
                 %>
                 <table>
                     <thead>
@@ -82,8 +83,7 @@
                             + c.getIdUsuario() + ">Excluir</a>");%></td>   
                         </tr>
                         <%}%>
-
-
+                    
                     </tbody>
                 </table>
                 <p><a href="cadastroCategoria.jsp">Clique <strong>aqui</strong> para Incluir uma nova Categoria</a></p>

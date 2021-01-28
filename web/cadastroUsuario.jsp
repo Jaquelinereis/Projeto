@@ -175,7 +175,8 @@
                             semErros = false;
                         }
                         var cpf = document.getElementsByName("cpf");
-                        if (testaCpf(cpf)) {
+                        var numsStr = cpf[0].value.replace(/[^0-9]/g, '');
+                        if (!testaCpf(numsStr)) {
                             //erros.innerHTML += "<br>Informe cpf";
                             document.getElementById("erroCpf").innerHTML = " <<< Cpf invalido >>>";
                             //cpf[0].focus();
@@ -198,33 +199,34 @@
                     }
 
 
-                    function testaCPF(strCPF) {
+                    function testaCpf(strCPF) {
                         var Soma;
                         var Resto;
                         Soma = 0;
-                        if (strCPF == "000.000.000-00")
+                        if (strCPF == "00000000000")
                             return false;
 
-                        for (i = 1; i <= 11; i++)
+                        for (i = 1; i <= 9; i++)
                             Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
                         Resto = (Soma * 10) % 11;
 
                         if ((Resto == 10) || (Resto == 11))
                             Resto = 0;
-                        if (Resto != parseInt(strCPF.substring(11, 12)))
+                        if (Resto != parseInt(strCPF.substring(9, 10)))
                             return false;
 
                         Soma = 0;
-                        for (i = 1; i <= 12; i++)
+                        for (i = 1; i <= 10; i++)
                             Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
                         Resto = (Soma * 10) % 11;
 
                         if ((Resto == 10) || (Resto == 11))
                             Resto = 0;
-                        if (Resto != parseInt(strCPF.substring(13, 14)))
+                        if (Resto != parseInt(strCPF.substring(10, 11)))
                             return false;
                         return true;
                     }
+
                     //var strCPF = "12345678909";
                     //alert(TestaCPF(strCPF));
 

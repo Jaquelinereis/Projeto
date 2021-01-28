@@ -13,10 +13,11 @@
 <%@page import="java.sql.Date"%>
 <%@page contentType="text/html charset=UTF-8" pageEncoding="UTF-8"%>
 <%
+    String msg = "";
     Usuario usuario = new Usuario();
     if (usuario.userExiste(request.getParameter("usuario"))) {
         //voltar para cadastro
-        String msg = "Usuario já existe";
+        msg = "Usuario já existe";
         response.sendRedirect("informacao.jsp?msg="+msg);
     } else {
         usuario.setNome(request.getParameter("nome"));
@@ -47,9 +48,11 @@
                 categoria.setTipo(x.getTipo());
                 categoria.salvar();
             }
-            //direciona para a página de informações
-            String msg = "Usuario salvo com Sucesso!";
-            response.sendRedirect("informacao.jsp?msg="+msg);
+            msg = "Usuario salvo com Sucesso!";
+        } else {
+        msg = "Erro ao salvar Usuario!";
         }
+        //direciona para a página de informações
+        response.sendRedirect("informacao.jsp?msg="+msg);
     }
 %>

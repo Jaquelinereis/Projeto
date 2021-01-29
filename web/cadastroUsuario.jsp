@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Minha Agenda Financeira</title>
-        <link rel="stylesheet" href="styles/estilos.css">
+        <link rel="stylesheet" href="style/estilos.css">
         <style>
             input[type=checkbox]{
                 display: block;
@@ -30,7 +30,7 @@
                 background-color: white;                                              
             }
 
-            input[type=text],[type=date],[type=password]{
+            input[type=text],[type=date],[type=email],[type=password]{
                 position: initial;
                 background-color: lightskyblue;
                 border-bottom-color: white;
@@ -128,18 +128,18 @@
 
                         <label>Cpf</label>
                         <label id="erroCpf" class="error"></label> 
-                        <input type="text" name="cpf" onkeydown="javascript: fMasc(this, mCPF);"><br /> <br />
+                        <input type="text" name="cpf" onkeydown="javascript: fMasc(this, mCPF);" maxlength="14"><br /> <br />
 
                         <label>Data Nascimento</label>
                         <input type="date" name="dataNascimento" /> <br /> <br />
 
                         <label>Fone</label>
                         <label id="erroFone" class="error"></label>
-                        <input type="text" name="fone" onkeydown="javascript: fMasc(this, mTel);"><br /> <br />
+                        <input type="text" name="fone" onkeydown="javascript: fMasc(this, mTel);" maxlength="15"><br /> <br />
 
                         <label>Cep</label>
                         <label id="erroCep" class="error"></label>
-                        <input type="text" name="cep" onkeydown="javascript: fMasc(this, mCEP);"><br /> <br />
+                        <input type="text" name="cep" onkeydown="javascript: fMasc(this, mCEP);" maxlength="9"><br /> <br />
 
                         <label>Endereço</label>
                         <input type="text" name="endereco" /> <br /> <br />
@@ -151,13 +151,13 @@
                         <input type="text" name="cidade" /> <br /> <br />
 
                         <label>Estado</label>
-                        <input type="text" name="uf" /> <br /> <br />
+                        <input type="text" name="uf" maxlength="2"/> <br /> <br />
 
                         <label>e-Mail/Usuario</label>
-                        <input type="text" name="usuario" /> <br /> <br />
+                        <input type="email" name="usuario" required /> <br /> <br />
 
                         <label>Senha</label>
-                        <input type="password" name="senha" /> <br /> <br />
+                        <input type="password" name="senha" required /> <br /> <br />
 
                         <input type="button" value="Enviar" onclick="enviarDados()" />
                     </div>
@@ -165,39 +165,33 @@
 
                 <script>
                     function enviarDados() {
-                        var semErros = true;
                         var nome = document.getElementsByName("nome");
                         if (nome[0].value === "") {
-                            //erros.innerHTML += "<br>Informe nome";
-                            //nome[0].style="border: red solid 3px";
-                            //nome[0].focus();
-                            document.getElementById("erroNome").innerHTML = " <<< Informe Nome >>>";
-                            semErros = false;
+                            nome[0].focus();
+                            alert("informe o Nome");
+                            exit();
                         }
                         var cpf = document.getElementsByName("cpf");
                         var numsStr = cpf[0].value.replace(/[^0-9]/g, '');
                         if (!testaCpf(numsStr)) {
-                            //erros.innerHTML += "<br>Informe cpf";
-                            document.getElementById("erroCpf").innerHTML = " <<< Cpf invalido >>>";
-                            //cpf[0].focus();
-                            semErros = false;
+                            cpf[0].focus();
+                            alert("Cpf inválido!");
+                            exit();
                         }
-                        var fone = document.getElementsByName("fone");
-                        if (fone[0].value === "") {
-                            document.getElementById("erroFone").innerHTML = " <<< Informe Telefone/Celular >>>";
-                            semErros = false;
+                        var dataNascimento = document.getElementsByName("dataNascimento");
+                        if (dataNascimento[0].value === "") {
+                            dataNascimento[0].focus();
+                            alert("informe a Data de Nascimento");
+                            exit();
                         }
                         var cep = document.getElementsByName("cep");
                         if (cep[0].value === "") {
-                            document.getElementById("erroCep").innerHTML = " <<< Informe Cep >>>";
-                            semErros = false;
+                            cep[0].focus();
+                            alert("informe o Cep");
+                            exit();
                         }
-
-                        if (semErros) {
-                            document.forms[0].submit();
-                        }
+                        document.forms[0].submit();
                     }
-
 
                     function testaCpf(strCPF) {
                         var Soma;
@@ -226,10 +220,6 @@
                             return false;
                         return true;
                     }
-
-                    //var strCPF = "12345678909";
-                    //alert(TestaCPF(strCPF));
-
                 </script>
             </article>
         </section>

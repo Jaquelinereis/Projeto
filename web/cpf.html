@@ -60,13 +60,13 @@
     <body>
         <form action="cpf.html" method="POST">
             <label>Cpf</label>
-            <input type="text" name="cpf" onkeydown="javascript: fMasc(this, mCPF);"><br>
+            <input type="text" name="cpf" onkeydown="javascript: fMasc(this, mCPF);" maxlength="14"><br>
             <label>Cnpj</label>
-            <input type="text" name="cnpj" onkeydown="javascript: fMasc(this, mCNPJ);"><br>
+            <input type="text" name="cnpj" onkeydown="javascript: fMasc(this, mCNPJ);" maxlength="18"><br>
             <label>Cep</label>
-            <input type="text" name="cep" onkeydown="javascript: fMasc(this, mCEP);"><br>
+            <input type="text" name="cep" onkeydown="javascript: fMasc(this, mCEP);" maxlength="9"><br>
             <label>Telefone</label>
-            <input type="text" name="tel" onkeydown="javascript: fMasc(this, mTel);"><br>
+            <input type="text" name="tel" onkeydown="javascript: fMasc(this, mTel);" maxlength="15"><br>
             <br />
             <input type="button" value="Enviar" onclick="enviarDados()" />
         </form>

@@ -144,6 +144,88 @@ public class Receita {
         }
         return lista;
     }
+    public List<Receita> consultaLancamentosByIntervaloData(int idUser, Date dataInicio,Date dataFim, boolean agrupar) {
+        Connection con = Conexao.conectar();
+        List<Receita> lista = new ArrayList<>();
+        String sql = "select receita.descricao, receita.data, ";
+                            
+               if(agrupar)
+                 sql += " sum(receita.valor) as valor ";
+               else
+                 sql += " receita.valor   ";  
+              
+               sql += " from receita ";
+               sql += " where receita.idusuario = ?";
+               sql += " and receita.data between ? and ? ";
+              if (agrupar)
+                 sql += " group by receita.descricao, receita.data ";
+               sql += " order by receita.descricao";
+
+
+        Receita receita = null;
+        try {
+            PreparedStatement stm = con.prepareStatement(sql);
+            stm.setInt(1, idUser);
+            stm.setDate(2, dataInicio);
+            stm.setDate(3, dataFim);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                receita = new Receita();
+                receita.setDescricao(rs.getString("descricao"));
+                receita.setValor(rs.getFloat("valor"));
+                receita.setData(rs.getDate("data")); 
+                lista.add(receita);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro: " + ex.getMessage());
+        }
+        return lista;
+    }
+  
+    
+    
+    public List<Receita> consultaLancamentosByIntervaloData(int idUser, Date dataInicio,Date dataFim, boolean agrupar, int categoria) {
+        Connection con = Conexao.conectar();
+        List<Receita> lista = new ArrayList<>();
+        String sql = "select receita.descricao, receita.data, ";
+                            
+               if(agrupar)
+                 sql += " sum(receita.valor) as valor ";
+               else
+                 sql += " receita.valor   ";  
+              
+               sql += " from receita ";
+               sql += " where receita.idusuario = ?";
+               sql += " and receita.data between ? and ? ";
+               sql += " and receita.idcategoria = ?";
+              if (agrupar)
+                 sql += " group by receita.descricao, receita.data ";
+               sql += " order by receita.descricao";
+
+
+        Receita receita = null;
+        try {
+            PreparedStatement stm = con.prepareStatement(sql);
+            stm.setInt(1, idUser);
+            stm.setDate(2, dataInicio);
+            stm.setDate(3, dataFim);
+            stm.setInt(4, categoria);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                receita = new Receita();
+                receita.setDescricao(rs.getString("descricao"));
+                receita.setValor(rs.getFloat("valor"));
+                receita.setData(rs.getDate("data")); 
+                lista.add(receita);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro: " + ex.getMessage());
+        }
+        return lista;
+    }
+    
 
     public boolean excluir() {
         Connection con = Conexao.conectar();

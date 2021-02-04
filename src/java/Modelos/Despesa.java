@@ -159,6 +159,88 @@ public class Despesa {
         }
         return true;
     }
+    
+    
+     public List<Despesa> consultaLancamentosByIntervaloData(int idUser, Date dataInicio,Date dataFim, boolean agrupar) {
+        Connection con = Conexao.conectar();
+        List<Despesa> lista = new ArrayList<>();
+        String sql = "select despesa.descricao, despesa.data, ";
+                            
+               if(agrupar)
+                 sql += " sum(despesa.valor) as valor ";
+               else
+                 sql += " despesa.valor   ";  
+              
+               sql += " from despesa ";
+               sql += " where despesa.idusuario = ?";
+               sql += " and despesa.data between ? and ? ";
+              if (agrupar)
+                 sql += " group by despesa.descricao, despesa.data ";
+               sql += " order by despesa.descricao";
+
+
+        Despesa despesa = null;
+        try {
+            PreparedStatement stm = con.prepareStatement(sql);
+            stm.setInt(1, idUser);
+            stm.setDate(2, dataInicio);
+            stm.setDate(3, dataFim);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                despesa = new Despesa();
+                despesa.setDescricao(rs.getString("descricao"));
+                despesa.setValor(rs.getFloat("valor"));
+                despesa.setData(rs.getDate("data")); 
+                lista.add(despesa);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro: " + ex.getMessage());
+        }
+        return lista;
+    }
+     
+     
+    public List<Despesa> consultaLancamentosByIntervaloData(int idUser, Date dataInicio,Date dataFim, boolean agrupar, int categoria) {
+        Connection con = Conexao.conectar();
+        List<Despesa> lista = new ArrayList<>();
+        String sql = "select despesa.descricao, despesa.data, ";
+                            
+               if(agrupar)
+                 sql += " sum(despesa.valor) as valor ";
+               else
+                 sql += " despesa.valor   ";  
+              
+               sql += " from despesa ";
+               sql += " where despesa.idusuario = ?";
+               sql += " and despesa.data between ? and ? ";
+               sql += " and despesa.idcategoria = ?";
+              if (agrupar)
+                 sql += " group by despesa.descricao, despesa.data ";
+               sql += " order by despesa.descricao";
+
+
+        Despesa despesa = null;
+        try {
+            PreparedStatement stm = con.prepareStatement(sql);
+            stm.setInt(1, idUser);
+            stm.setDate(2, dataInicio);
+            stm.setDate(3, dataFim);
+            stm.setInt(4, categoria);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                despesa = new Despesa();
+                despesa.setDescricao(rs.getString("descricao"));
+                despesa.setValor(rs.getFloat("valor"));
+                despesa.setData(rs.getDate("data")); 
+                lista.add(despesa);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro: " + ex.getMessage());
+        }
+        return lista;
+    }
 
     public int getId() {
         return id;

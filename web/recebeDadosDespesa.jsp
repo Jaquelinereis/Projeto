@@ -19,6 +19,7 @@
     Despesa despesa = new Despesa();
     despesa.setIdUsuario(idUser);
     despesa.setIdCategoria(Integer.parseInt(request.getParameter("idCategoria")));
+    
     despesa.setDescricao(request.getParameter("descricao"));
     despesa.setValor(Float.parseFloat(request.getParameter("valor")));
     despesa.setData(Date.valueOf(request.getParameter("data")));

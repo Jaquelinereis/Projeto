@@ -32,11 +32,14 @@
     </head>
     <body>
         <%
+            int idUser = 0;
             //verifica sessão
-            String usuario = (String) session.getAttribute("usuario");
-            int idUser = (int) session.getAttribute("idUser");
+            String usuario = (String) session.getAttribute("usuario");           
             if (usuario == null) {
                 response.sendRedirect("login.jsp");
+            } 
+            else{
+               idUser = (int) session.getAttribute("idUser");
             }
         %>
         <header>

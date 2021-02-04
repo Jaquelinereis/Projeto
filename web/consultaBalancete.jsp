@@ -38,10 +38,11 @@
           String descricao = request.getParameter("descricao");
           if(descricao != null){
             Receita receita = new Receita();
-            receitas = receita.consultar();
+             
+            //receitas = receita.consultar();
           }
         %>
-        <script src="scripts/menu.js"></script>
+        
         <link rel="stylesheet" href="style/estilos.css">
         <h1>Consulta Balancete</h1>
         <hr />
